@@ -216,5 +216,9 @@ marimo/_static/
 marimo/_lsp/
 __marimo__/
 
-# Streamlit
+# Secrets: never commit these
+.env
+.env.*
+!.env.example
 .streamlit/secrets.toml
+ secrets.toml
