@@ -3,6 +3,9 @@
 CAIRLab SecureAI Hackathon 2026, Challenge 3. We probed the SecureAI Guard API, found what it lets through,
 and built extra layers around it. This README states what we measured and what we did not.
 
+## The system we chose to protect
+A **customer-support chatbot for a bank**. A user's message goes to an LLM (an OpenAI-style chat API; the code defaults to `gpt-4o-mini`) whose hidden system prompt says it is a helpful bank support assistant. The SecureAI Guard screens what goes in and what comes out. Our layers sit around the Guard: a **decoder** on the way in (so encoded attacks are made visible before the model sees them) and a **canary check** on the way out (so a leak of the hidden instructions is caught).
+
 ## What the brief asks, and where it is in this repo
 | Brief item | Our answer |
 |---|---|
@@ -63,7 +66,7 @@ python probe_guard.py       # about 38 Guard calls
 python try_it.py            # about 12 Guard calls, LLM not called
 streamlit run app.py        # the demo page
 ```
-`.env` needs `GUARD_URL`, `GUARD_TOKEN` and `LLM_API_KEY`. Optional: `LLM_MODEL` (default `gpt-4o-mini`) and `LLM_BASE_URL` (default `https://api.openai.com/v1`).
+No credentials are stored in this repository. To run it, copy `.env.example` to `.env` and fill in your own Guard URL, Guard token and LLM key. `.env` needs `GUARD_URL`, `GUARD_TOKEN` and `LLM_API_KEY`. Optional: `LLM_MODEL` (default `gpt-4o-mini`) and `LLM_BASE_URL` (default `https://api.openai.com/v1`).
 Team limits: 30 calls/min and 1,000/day. One "Run both" in the demo uses about 2 to 7 Guard calls.
 
 ## Repo layout
